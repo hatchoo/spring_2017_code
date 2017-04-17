@@ -47,6 +47,7 @@ public:
     
     int numRows;
     int numCols;
+    int mappedRGB;
     
     ofBoxPrimitive box[100];
     

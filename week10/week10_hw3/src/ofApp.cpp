@@ -17,9 +17,9 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     cam.setDistance(0);
     cam.enableMouseInput();
-    cout << cam.getFov() << endl;
+    //cout << cam.getFov() << endl;
     cam.setFov(60);
-    cout << cam.getFarClip() <<endl;
+    //cout << cam.getFarClip() <<endl;
     sizeOfGrid = 100;
     
     width = 10;
@@ -35,12 +35,7 @@ void ofApp::setup(){
         box[i].setPosition( i * spacing + i * width, 0, numRows * spacing * (i % numCols));
     }
     
-    pointLight.setPosition(ofGetWindowWidth()/2, ofGetWindowHeight()/2, 10);
     
-    pointLight.setDiffuseColor(ofColor(255,0,0));
-    pointLight.setSpecularColor(ofColor(255,255,255));
-    
-    myMaterial.setShininess(120);
     //myMaterial.setDiffuseColor(ofColor(0,255,0));
     //myMaterial.setEmissiveColor(ofColor(0,0,255));
     
@@ -55,10 +50,21 @@ void ofApp::update(){
     if(volHistory.size() >= 100){
         volHistory.erase(volHistory.begin(), volHistory.begin() +1);
     }
+    
+    mappedRGB = ofMap(vol,0.00185,0.0035,0,255);
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    
+    pointLight.setPosition(ofGetWindowWidth()/2, ofGetWindowHeight()/2, 10);
+    
+    pointLight.setDiffuseColor(ofColor(mappedRGB,mappedRGB,mappedRGB));
+    pointLight.setSpecularColor(ofColor(255,255,255));
+    
+    myMaterial.setShininess(120);
+    
     cam.begin();
     
     ofPushMatrix();
